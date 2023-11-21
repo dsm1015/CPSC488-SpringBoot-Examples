@@ -22,17 +22,29 @@ public class EmailController {
   @Value("${server.port}")
   private String port;
 
+  @Value("${spring.mail.username}")
+  private String email;
+
+  @Value("${spring.mail.password}")
+  private String password;
+
+  @Value("${spring.mail.host}")
+  private String mailHost;
+
+  @Value("${spring.mail.port}")
+  private int mailPort;
+
   @Autowired
   private ServletContext servletContext;
 
   @Bean
   public JavaMailSender getJavaMailSender() {
     JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-    mailSender.setHost("smtp.gmail.com");
-    mailSender.setPort(587);
+    mailSender.setHost(mailHost);
+    mailSender.setPort(mailPort);
 
-    mailSender.setUsername("worldofwidgetsinc@gmail.com");
-    mailSender.setPassword("zxfeppgfuibrisay");
+    mailSender.setUsername(email);
+    mailSender.setPassword(password);
 
     Properties props = mailSender.getJavaMailProperties();
     props.put("mail.transport.protocol", "smtp");
